@@ -1,15 +1,35 @@
-# Todo Application
+# Todo Application (Fullstack)
 
-## to
+## Tech Stack
+- **Frontend**: React (Vite) + TypeScript
+- **Backend**: FastAPI (Python)
 
-### Fullstack
+## Requirements
+- Node.js (v18+)
+- Python (3.9+)
 
-use template with `main`.
+## Setup
 
-### Backend
+### 1. Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-use template with `back`.
+### 2. Backend
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
 
-### Frontend
-
-use template with `front`.
+## Project Structure
+```
+project/
+├── frontend/          # React (Vite)
+├── backend/           # FastAPI
+└── docs/              # Documentation
+```
