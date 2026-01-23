@@ -45,9 +45,10 @@ flowchart TD
     style Edit fill:#bfb,stroke:#333,stroke-width:2px
 ```
 ### 画面詳細
-
-| 画面名 | パス (例) | 機能概要 |
-| :--- | :--- | :--- |
-| **一覧画面** | `/` | Todoの一覧表示、新規作成（クイック追加）、完了切り替え、削除 |
-| **詳細画面** | `/todos/:id` | Todoの全ての情報（詳細、期間など）を表示 |
-| **編集画面** | `/todos/:id/edit` | タイトル、詳細、開始・終了日時の編集 |
+| メソッド | エンドポイント | 機能 |
+|----------|---------------|------|
+| `GET` | `/api/todos` | Todo一覧取得 |
+| `GET` | `/api/todos/:id` | 特定のTodo取得 |
+| `POST` | `/api/todos` | 新規Todo作成 |
+| `PUT` | `/api/todos/:id` | Todo更新 |
+| `DELETE` | `/api/todos/:id` | Todo削除 |
