@@ -11,7 +11,7 @@ def create_mock_todos():
             end_date=datetime.now() + timedelta(days=1),
             completed=False,
             created_at=datetime.now(),
-            timestamp=datetime.now()
+            updated_at=datetime.now()
         ),
         Todo(
             title="レポート作成",
@@ -20,7 +20,7 @@ def create_mock_todos():
             end_date=datetime.now() + timedelta(days=3),
             completed=False,
             created_at=datetime.now(),
-            timestamp=datetime.now()
+            updated_at=datetime.now()
         ),
         Todo(
             title="ランニング",
@@ -29,7 +29,7 @@ def create_mock_todos():
             end_date=datetime.now() + timedelta(hours=3),
             completed=True,
             created_at=datetime.now(),
-            timestamp=datetime.now()
+            updated_at=datetime.now()
         ),
     ]
 
