@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+import uvicorn
+from app.api import todos
 app = FastAPI()
 
 # CORS configuration
 origins = [
     "http://localhost:5173",  # Vite default port
-    "http://localhost:3000",
 ]
 
 app.add_middleware(
@@ -17,11 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+app.include_router(todos.router) # /api/todos
 
-@app.get("/api/todos")
-def get_todos():
-    # Mock data for now
-    return {"success": True, "data": []}
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
