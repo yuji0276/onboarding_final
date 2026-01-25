@@ -19,10 +19,8 @@ class TodoGet(TodoBase):
 class TodoPost(TodoBase):
     pass
 
-class ToDoUpdate(TodoBase):
-    id: int
-    title: str
-    description: str
-    end_date: datetime
-    completed: bool
-    timestamp: datetime
+class TodoUpdate(TodoBase):
+    pass
+
+class TodoDelete(TodoBase):
+    pass
