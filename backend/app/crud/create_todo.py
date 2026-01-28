@@ -1,11 +1,11 @@
 from app.models.todo import Todo
-from app.core.database import SessionLocal
+from sqlalchemy.orm import Session
 from app.schemas.todo import TodoPost, TodoGet
 
-def create_todo(todo: TodoPost) -> TodoGet:
-    with SessionLocal() as db:
-        db_todo = Todo(**todo.dict())
-        db.add(db_todo)
-        db.commit()
-        db.refresh(db_todo)
-        return TodoGet.model_validate(db_todo)
+
+def create_todo(todo: TodoPost, db: Session) -> TodoGet:
+    db_todo = Todo(**todo.dict())
+    db.add(db_todo)
+    db.commit()
+    db.refresh(db_todo)
+    return TodoGet.model_validate(db_todo)

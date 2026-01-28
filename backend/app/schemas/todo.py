@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 class TodoBase(BaseModel):
@@ -13,7 +13,7 @@ class TodoGet(TodoBase):
     title: str
     description: str
     end_date: datetime
-    completed: bool
+    completed: bool = False
     created_at: datetime 
 
 class TodoPost(TodoBase):
