@@ -1,23 +1,36 @@
 # Todo Application (Fullstack)
 
-## Tech Stack
-- **Frontend**: React (Vite) + TypeScript
-- **Backend**: FastAPI (Python)
+A full-stack Todo application featuring a FastAPI backend with SQLite database and a React (Vite) frontend.
 
-## Requirements
-- Node.js (v18+)
-- Python (3.9+)
+## Tech Stack
+
+### Frontend
+- **Framework**: React 19 (Vite)
+- **Language**: TypeScript
+- **Styling**: CSS (Vanilla)
+
+### Backend
+- **Framework**: FastAPI
+- **Language**: Python 3.9+
+- **Database**: SQLite (via SQLAlchemy)
+- **ORM**: SQLAlchemy
+- **Data Validation**: Pydantic
+- **Testing**: Pytest
+
+## Features
+
+- **Todo Management**:
+  - Create new todos
+  - List all todos
+  - Get specific todo details
+  - Update existing todos
+  - Delete todos
+- **API Documentation**: Automatic interactive API docs provided by FastAPI (Swagger UI).
 
 ## Setup
 
-### 1. Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
+### 1. Backend
 
-### 2. Backend
 ```bash
 cd backend
 python3 -m venv venv
@@ -26,9 +39,20 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-## Project Structure
+The server will start at `http://localhost:8000`.
+- **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-### Directory Tree
+### 2. Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend development server will usually start at `http://localhost:5173`.
+
+## Project Structure
 
 ```
 project/
@@ -41,26 +65,14 @@ project/
 │
 ├── backend/              # Backend API (FastAPI + Python)
 │   ├── app/              # Application logic
-│   │   ├── api/          # API Route handlers (Endpoints)
-│   │   ├── core/         # Core configurations
-│   │   ├── db/           # Database configuration
+│   │   ├── api/          # API Route handlers (endpoints like todos.py)
+│   │   ├── core/         # Core configurations (database connection, etc)
+│   │   ├── crud/         # Database operations (create, read, update, delete)
 │   │   ├── models/       # SQLAlchemy Database models
-│   │   ├── schemas/      # Pydantic models (Request/Response schemas)
-│   │   └── crud/         # Database operations (Create, Read, Update, Delete)
+│   │   └── schemas/      # Pydantic models (Request/Response schemas)
 │   ├── main.py           # Application entry point
-│   └── requirements.txt  # Python dependencies
+│   ├── requirements.txt  # Python dependencies
+│   └── test.db           # SQLite database file (generated after running)
 │
 └── docs/                 # Documentation
-    ├── requirement.md    # Requirements definition
-    └── design.md         # System design (ER Diagram, UI Flow)
 ```
-
-### Key Directories
-
-- **frontend/**: UIの実装。Viteを使用した高速な開発環境。
-- **backend/app/**: バックエンドの主要ロジック。
-    - **models/**: データベースのテーブル構造定義。
-    - **schemas/**: APIのリクエスト・レスポンスの型定義（バリデーション用）。
-    - **api/**: エンドポイントの実装。
-- **docs/**: 設計書や要件定義書を格納。
-
