@@ -1,34 +1,41 @@
-from fastapi import APIRouter, HTTPException
+from app.schemas.todo import TodoPost, TodoGet, TodoUpdate
+from app.core.database import get_db
+from sqlalchemy.orm import Session
+from fastapi import APIRouter, HTTPException, Depends
 from app.crud.get_todos import get_all_todos, get_todo
 from app.crud.create_todo import create_todo
 from app.crud.update_todo import update_todo
 from app.crud.delete_todo import delete_todo
-from app.schemas.todo import TodoPost, TodoGet, TodoUpdate
-from app.core.database import session_local
+
 router = APIRouter()
 
+
 @router.get("/api/todos", response_model=list[TodoGet], status_code=200)
-def get_todos():
-    return get_all_todos(session_local)
+def get_todos(db: Session = Depends(get_db)):
+    return get_all_todos(db)
+
 
 @router.post("/api/todos", response_model=TodoGet, status_code=201)
-def create_new_todo(todo: TodoPost):
-    return create_todo(todo, session_local)
+def create_new_todo(todo: TodoPost, db: Session = Depends(get_db)):
+    return create_todo(todo, db)
+
 
 @router.get("/api/todos/{id}", response_model=TodoGet, status_code=200)
-def read_todo(id: int):
-    return get_todo(id, session_local)
+def read_todo(id: int, db: Session = Depends(get_db)) -> TodoGet | None:
+    todo = get_todo(id, db)
+
+    if todo is None:
+        raise HTTPException(status_code=404, detail="todo not found")
+    return todo
+
 
 @router.delete("/api/todos/{id}", status_code=204)
-def delete_todo_item(id: int):
-    result = delete_todo(id,session_local)
-    if result is None:
-        raise HTTPException(status_code=404, detail="Todo not found")
-    return {"message": "Todo deleted successfully"}
+def delete_todo_item(id: int, db: Session = Depends(get_db)):
+    deleted_todo = delete_todo(id, db)
+    return deleted_todo
+
 
 @router.put("/api/todos/{id}", response_model=TodoGet, status_code=200)
-def update_todo_item(id: int, todo: TodoUpdate):
-    updated_todo = update_todo(id, todo,session_local)
-    if updated_todo is None:
-        raise HTTPException(status_code=404, detail="Todo not found")
+def update_todo_item(id: int, todo: TodoUpdate, db: Session = Depends(get_db)):
+    updated_todo = update_todo(id, todo, db)
     return updated_todo
