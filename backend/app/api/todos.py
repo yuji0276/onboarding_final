@@ -39,7 +39,7 @@ def delete_todo_item(id: int, db: Session = Depends(get_db_session)):
 
 
 @router.patch("api/todos/{id}", response_model=TodoGet, status_code=200)
-def update_todo(id: int, todo: TodoUpdate, db: Session = Depends(get_db_session)):
+def update_todo_item(id: int, todo: TodoUpdate, db: Session = Depends(get_db_session)):
     updated_todo = update_todo(id, todo, db=Depends(get_db_session))
     if updated_todo is None:
         raise HTTPException(status_code=404, detail="todo not found")
