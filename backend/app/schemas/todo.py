@@ -17,8 +17,14 @@ class TodoPost(TodoBase):
     pass
 
 
-class TodoUpdate(TodoBase):
-    pass
+class TodoUpdate(BaseModel):
+    title: str | None = None
+    description: str | None = None
+    start_date: Optional[datetime] | None = None
+    end_date: Optional[datetime] | None = None
+    completed: bool = False
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TodoGet(TodoBase):
