@@ -10,6 +10,8 @@ class TodoBase(BaseModel):
     end_date: Optional[datetime] = None
     completed: bool = False
 
+    model_config = ConfigDict(from_attributes=True)
+
 
 class TodoPost(TodoBase):
     pass
@@ -22,7 +24,6 @@ class TodoUpdate(TodoBase):
 class TodoGet(TodoBase):
     id: int
     created_at: datetime
-    model_config = ConfigDict(from_attributes=True)
 
 
 class TodoDelete(TodoBase):
