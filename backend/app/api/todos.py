@@ -17,6 +17,14 @@ def get_todos(db: Session = Depends(get_db_session)):
 
 @router.post("/api/todos", response_model=TodoGet, status_code=201)
 def create_new_todo(todo: TodoPost, db: Session = Depends(get_db_session)):
+    # titleとdescriptionがnoneだと400エラー
+    if not todo.title or not todo.description:
+        raise HTTPException(status_code=400, detail="bad request")
+    # todoの開始時間が終了時間よりあとだと400エラー
+    if todo.start_date != None and todo.end_date != None:
+        if todo.start_date > todo.end_date:
+            raise HTTPException(status_code=400, detail="bad request")
+
     return create_todo(todo, db)
 
 
