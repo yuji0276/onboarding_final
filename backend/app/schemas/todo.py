@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 from datetime import datetime
 from typing import Optional
 
@@ -13,6 +13,14 @@ class TodoBase(BaseModel):
     completed: bool = False
 
     model_config = ConfigDict(from_attributes=True)
+
+    @model_validator(mode="after")
+    def check_date_order(self):
+        start = self.start_date
+        end = self.end_date
+        if start and end and start > end:
+            raise ValueError("Please ensure the end date is after the start date.")
+        return self
 
 
 class TodoGet(TodoBase):
