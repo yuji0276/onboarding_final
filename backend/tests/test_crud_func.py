@@ -12,10 +12,10 @@ def test_get_all_todos(test_db_session):
     test_db_session.add(new_todo)
     test_db_session.commit()
 
-    result = get_all_todos(test_db_session)
+    good_request = get_all_todos(test_db_session)
 
-    assert len(result) == 1
-    assert result[0].title == "task for test"
+    assert len(good_request) == 1
+    assert good_request[0].title == "task for test"
 
 
 def test_get_todo(test_db_session):
@@ -23,30 +23,33 @@ def test_get_todo(test_db_session):
     test_db_session.add(new_todo)
     test_db_session.commit()
 
-    result = get_todo(1, test_db_session)
+    good_request = get_todo(1, test_db_session)
+    bad_request = get_todo(2, test_db_session)  # 存在しないID
 
-    assert result != None
-    assert result.title == "task for test"
-    assert result.description == "this is test"
+    assert good_request is not None
+    assert good_request.title == "task for test"
+    assert good_request.description == "this is test"
+
+    assert bad_request is None
 
 
 def test_create_todo(test_db_session):
 
     target_date = datetime(2026, 1, 29)
 
-    test_todo = TodoPost(
+    test_good_todo = TodoPost(
         title="task for test",
         description="this is test",
         start_date=target_date,
         completed=False,
     )
 
-    result = create_todo(test_todo, test_db_session)
+    good_request = create_todo(test_good_todo, test_db_session)
 
-    assert result != None
-    assert result.start_date == target_date
-    assert result.end_date == None
-    assert result.id is not None
+    assert good_request != None
+    assert good_request.start_date == target_date
+    assert good_request.end_date == None
+    assert good_request.id is not None
 
 
 def test_update_todo(test_db_session):
@@ -59,10 +62,10 @@ def test_update_todo(test_db_session):
         description="this is test for updating",
     )
 
-    result = update_todo(1, todo, test_db_session)
+    good_request = update_todo(1, todo, test_db_session)
 
-    assert result != None
-    assert result.title == "test for update"
+    assert good_request is not None
+    assert good_request.title == "test for update"
 
 
 def test_delete_todo(test_db_session):
