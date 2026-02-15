@@ -1,10 +1,12 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
 from typing import Optional
 
 
 class TodoBase(BaseModel):
-    title: str | None = None
+    title: str = Field(
+        min_length=1,
+    )
     description: str | None = None
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
