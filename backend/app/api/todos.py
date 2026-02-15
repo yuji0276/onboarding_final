@@ -41,7 +41,7 @@ def read_todo(id: int, db: Session = Depends(get_db_session)) -> TodoGet | None:
 def delete_todo_item(id: int, db: Session = Depends(get_db_session)):
     is_delete_success = delete_todo(id, db)
 
-    if is_delete_success:
+    if not is_delete_success:
         raise HTTPException(status_code=404, detail="todo not found")
     return None
 
