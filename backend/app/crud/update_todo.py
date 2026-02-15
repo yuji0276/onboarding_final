@@ -4,9 +4,7 @@ from app.schemas.todo import TodoUpdate, TodoGet
 
 
 def update_todo(todo_id: int, todo_update: TodoUpdate, db: Session) -> TodoGet | None:
-    todo = db.get(Todo, todo_id)
-    if todo is None:
-        return None
+    todo = db.get(Todo, todo_id)  # 失敗時はNoneが返る
 
     update_data = todo_update.model_dump(exclude_unset=True)
     for key, value in update_data.items():

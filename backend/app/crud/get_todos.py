@@ -11,6 +11,5 @@ def get_all_todos(
 
 
 def get_todo(todo_id: int, db: Session) -> TodoGet | None:
-    todo = None
-    todo = db.get(Todo, todo_id)
+    todo = db.get(Todo, todo_id)  # 失敗時はNoneが返る
     return todo
