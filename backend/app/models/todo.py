@@ -9,7 +9,7 @@ class Todo(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     title: Mapped[str] = mapped_column(String, index=True)
-    description: Mapped[str] = mapped_column(String, index=True)
+    description: Mapped[str | None] = mapped_column(String, index=True)
     start_date: Mapped[datetime | None] = mapped_column(DateTime, index=True)
     end_date: Mapped[datetime | None] = mapped_column(DateTime, index=True)
     completed: Mapped[bool] = mapped_column(Boolean, default=False)
