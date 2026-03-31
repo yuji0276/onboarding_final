@@ -17,7 +17,7 @@
 ## 共通仕様（全コース共通）
 
 ### Todoの基本データ構造
-
+pip install alembic
 | name | detail | type |
 | ---- | ------ | ---- |
 |  id  | 一意のID | number / str |
